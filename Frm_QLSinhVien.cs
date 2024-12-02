@@ -276,6 +276,26 @@ namespace QuanLySinhVien
             }
         }
 
-        
+        private void btn_AddData_Click(object sender, EventArgs e)
+        {
+            //thêm dữ liệu mẫu
+            lstSinhVien.Add(new SinhVien("2280600001", "Nguyễn Văn A", 9.5, "QTKD", "Nam"));
+            lstSinhVien.Add(new SinhVien("2280600002", "Trần Thị B", 8.5, "CNTT", "Nữ"));
+            lstSinhVien.Add(new SinhVien("2280600003", "Lê Văn C", 7.8, "CNTT", "Nam"));
+            lstSinhVien.Add(new SinhVien("2280600004", "Phạm Thị D", 10, "NNA", "Nữ"));
+            lstSinhVien.Add(new SinhVien("2280600005", "Nguyễn Văn E", 5.8, "CNTT", "Nam"));
+            lstSinhVien.Add(new SinhVien("2280600006", "Trần Thị F", 4, "CNTT", "Nữ"));
+            lstSinhVien.Add(new SinhVien("2280600007", "Lê Văn G", 3, "CNTT", "Nam"));
+            lstSinhVien.Add(new SinhVien("2280600008", "Đỗ Mạnh H", 7, "QTKD", "Nam"));
+            lstSinhVien.Add(new SinhVien("2280600009", "Nguyễn Văn I", 1.2, "CNTT", "Nam"));
+            lstSinhVien.Add(new SinhVien("2280600010", "Trần Thị K", 5, "NNA", "Nữ"));
+
+            //hiển thị danh sách sinh viên lên dgvQLSinhVIen
+            HienThiDanhSachSinhVien();
+
+            //hiển thị thống kê số lượng sinh viên nam, nữ
+            txtMenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nam").ToString();
+            txtWomenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nữ").ToString();
+        }
     }
 }

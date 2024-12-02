@@ -60,6 +60,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbRank = new System.Windows.Forms.ComboBox();
+            this.btn_AddData = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSSV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errName)).BeginInit();
@@ -353,11 +354,22 @@
             this.cmbRank.TabIndex = 7;
             this.cmbRank.SelectedValueChanged += new System.EventHandler(this.cmbRank_SelectedValueChanged);
             // 
+            // btn_AddData
+            // 
+            this.btn_AddData.Location = new System.Drawing.Point(17, 12);
+            this.btn_AddData.Name = "btn_AddData";
+            this.btn_AddData.Size = new System.Drawing.Size(75, 23);
+            this.btn_AddData.TabIndex = 8;
+            this.btn_AddData.Text = "Add Data";
+            this.btn_AddData.UseVisualStyleBackColor = true;
+            this.btn_AddData.Click += new System.EventHandler(this.btn_AddData_Click);
+            // 
             // Frm_DanhSachSinhVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(937, 448);
+            this.Controls.Add(this.btn_AddData);
             this.Controls.Add(this.cmbRank);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnSearch);
@@ -414,6 +426,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colAVG;
         private System.Windows.Forms.DataGridViewTextBoxColumn colKhoa;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRank;
+        private System.Windows.Forms.Button btn_AddData;
     }
 }
 
