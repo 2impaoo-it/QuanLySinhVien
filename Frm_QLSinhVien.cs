@@ -23,8 +23,27 @@ namespace QuanLySinhVien
             cmbKhoa.ValueMember = "MaKhoa";
         }
 
+        public void SetGridViewStyle(DataGridView dgview)
+        {
+            // Loại bỏ viền của DataGridView để tạo cảm giác nhẹ nhàng hơn
+            dgview.BorderStyle = BorderStyle.None;
+
+            // Đặt màu nền khi chọn dòng là màu DarkTurquoise để nổi bật lựa chọn
+            dgview.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+
+            // Sử dụng viền đơn giữa các ô, tạo cảm giác thanh thoát và đơn giản
+            dgview.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            // Đặt màu nền chính của DataGridView là màu trắng, tạo độ tương phản cao với các hàng dữ liệu
+            dgview.BackgroundColor = Color.White;
+
+            // Đặt chế độ chọn toàn bộ hàng khi người dùng nhấp vào một ô, cải thiện trải nghiệm sử dụng
+            dgview.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
         private void Frm_DanhSachSinhVien_Load(object sender, EventArgs e)
         {
+            SetGridViewStyle(dgvDSSV);
             lstKhoa = new List<Khoa>()
             {
                 new Khoa() {MaKhoa = "CNTT", TenKhoa = "Công nghệ thông tin"},
@@ -39,7 +58,7 @@ namespace QuanLySinhVien
 
             //khoa QTKD và giới tính nữ được chọn mặc định  
             cmbKhoa.SelectedValue = "QTKD";
-            rboWomen.Checked = true;
+            rbWomen.Checked = true;
 
 
             txtMenCount.Text = txtWomenCount.Text = "0";
@@ -81,7 +100,7 @@ namespace QuanLySinhVien
             string tenSinhVien = txtName.Text;
             double avgScore = double.Parse(txtAVG.Text);
             string maKhoa = cmbKhoa.SelectedValue.ToString();
-            string gioiTinh = rboMen.Checked ? "Nam" : "Nữ";
+            string gioiTinh = rbMen.Checked ? "Nam" : "Nữ";
 
             //kiểm tra sinh viên tồn tại trong danh sách chưa
             SinhVien sv = lstSinhVien.FirstOrDefault(s => s.MaSV == maSinhVien);
@@ -113,7 +132,7 @@ namespace QuanLySinhVien
             //reset form 
             txtID.Text = txtName.Text = txtAVG.Text = "";
             cmbKhoa.SelectedValue = "QTKD";
-            rboWomen.Checked = true;
+            rbWomen.Checked = true;
         }
 
         private void UpdateRank()
@@ -161,8 +180,8 @@ namespace QuanLySinhVien
                 txtName.Text = sv.Ten;
                 txtAVG.Text = sv.Diem.ToString();
                 cmbKhoa.SelectedValue = sv.MaKhoa;
-                rboMen.Checked = sv.GioiTinh == "Nam";
-                rboWomen.Checked = sv.GioiTinh == "Nữ";
+                rbMen.Checked = sv.GioiTinh == "Nam";
+                rbWomen.Checked = sv.GioiTinh == "Nữ";
             }
         }
 
@@ -209,7 +228,7 @@ namespace QuanLySinhVien
                 //reset form
                 txtID.Text = txtName.Text = txtAVG.Text = "";
                 cmbKhoa.SelectedValue = "QTKD";
-                rboWomen.Checked = true;
+                rbWomen.Checked = true;
             }
             else
             {
@@ -244,17 +263,19 @@ namespace QuanLySinhVien
 
         private void cmbRank_SelectedValueChanged(object sender, EventArgs e)
         {
-            if(cmbRank.SelectedValue == "Tăng dần")
+            if(cmbRank.SelectedIndex == 0)
             {
                 //hiển thị danh sách sắp xếp tăng dần theo rank
                 dgvDSSV.Sort(dgvDSSV.Columns[5], ListSortDirection.Ascending);
             }
                
-            else if(cmbRank.SelectedValue == "Giảm dần")
+            else if(cmbRank.SelectedIndex == 1)
             {
                 //hiển thị danh sách sắp xếp giảm dần theo rank
                 dgvDSSV.Sort(dgvDSSV.Columns[5], ListSortDirection.Descending);
             }
         }
+
+        
     }
 }

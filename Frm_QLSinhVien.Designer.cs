@@ -33,8 +33,8 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.cmbKhoa = new System.Windows.Forms.ComboBox();
-            this.rboWomen = new System.Windows.Forms.RadioButton();
-            this.rboMen = new System.Windows.Forms.RadioButton();
+            this.rbWomen = new System.Windows.Forms.RadioButton();
+            this.rbMen = new System.Windows.Forms.RadioButton();
             this.txtAVG = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
@@ -45,6 +45,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dgvDSSV = new System.Windows.Forms.DataGridView();
+            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAVG = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colKhoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.txtMenCount = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -54,12 +60,6 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbRank = new System.Windows.Forms.ComboBox();
-            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAVG = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colKhoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSSV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errName)).BeginInit();
@@ -70,8 +70,8 @@
             this.groupBox1.Controls.Add(this.btnDelete);
             this.groupBox1.Controls.Add(this.btnAdd);
             this.groupBox1.Controls.Add(this.cmbKhoa);
-            this.groupBox1.Controls.Add(this.rboWomen);
-            this.groupBox1.Controls.Add(this.rboMen);
+            this.groupBox1.Controls.Add(this.rbWomen);
+            this.groupBox1.Controls.Add(this.rbMen);
             this.groupBox1.Controls.Add(this.txtAVG);
             this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Controls.Add(this.txtID);
@@ -118,29 +118,29 @@
             this.cmbKhoa.Size = new System.Drawing.Size(233, 30);
             this.cmbKhoa.TabIndex = 3;
             // 
-            // rboWomen
+            // rbWomen
             // 
-            this.rboWomen.AutoSize = true;
-            this.rboWomen.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rboWomen.Location = new System.Drawing.Point(252, 126);
-            this.rboWomen.Name = "rboWomen";
-            this.rboWomen.Size = new System.Drawing.Size(55, 27);
-            this.rboWomen.TabIndex = 2;
-            this.rboWomen.TabStop = true;
-            this.rboWomen.Text = "Nữ";
-            this.rboWomen.UseVisualStyleBackColor = true;
+            this.rbWomen.AutoSize = true;
+            this.rbWomen.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbWomen.Location = new System.Drawing.Point(252, 126);
+            this.rbWomen.Name = "rbWomen";
+            this.rbWomen.Size = new System.Drawing.Size(55, 27);
+            this.rbWomen.TabIndex = 2;
+            this.rbWomen.TabStop = true;
+            this.rbWomen.Text = "Nữ";
+            this.rbWomen.UseVisualStyleBackColor = true;
             // 
-            // rboMen
+            // rbMen
             // 
-            this.rboMen.AutoSize = true;
-            this.rboMen.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rboMen.Location = new System.Drawing.Point(134, 126);
-            this.rboMen.Name = "rboMen";
-            this.rboMen.Size = new System.Drawing.Size(69, 27);
-            this.rboMen.TabIndex = 2;
-            this.rboMen.TabStop = true;
-            this.rboMen.Text = "Nam";
-            this.rboMen.UseVisualStyleBackColor = true;
+            this.rbMen.AutoSize = true;
+            this.rbMen.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbMen.Location = new System.Drawing.Point(134, 126);
+            this.rbMen.Name = "rbMen";
+            this.rbMen.Size = new System.Drawing.Size(69, 27);
+            this.rbMen.TabIndex = 2;
+            this.rbMen.TabStop = true;
+            this.rbMen.Text = "Nam";
+            this.rbMen.UseVisualStyleBackColor = true;
             // 
             // txtAVG
             // 
@@ -236,6 +236,48 @@
             this.dgvDSSV.TabIndex = 1;
             this.dgvDSSV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDSSV_CellClick);
             // 
+            // col_ID
+            // 
+            this.col_ID.HeaderText = "Mã Sinh Viên";
+            this.col_ID.MinimumWidth = 6;
+            this.col_ID.Name = "col_ID";
+            this.col_ID.ReadOnly = true;
+            // 
+            // colName
+            // 
+            this.colName.HeaderText = "Tên Sinh Viên";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            // 
+            // colSex
+            // 
+            this.colSex.HeaderText = "Giới tính";
+            this.colSex.MinimumWidth = 6;
+            this.colSex.Name = "colSex";
+            this.colSex.ReadOnly = true;
+            // 
+            // colAVG
+            // 
+            this.colAVG.HeaderText = "Điểm TB";
+            this.colAVG.MinimumWidth = 6;
+            this.colAVG.Name = "colAVG";
+            this.colAVG.ReadOnly = true;
+            // 
+            // colKhoa
+            // 
+            this.colKhoa.HeaderText = "Khoa";
+            this.colKhoa.MinimumWidth = 6;
+            this.colKhoa.Name = "colKhoa";
+            this.colKhoa.ReadOnly = true;
+            // 
+            // colRank
+            // 
+            this.colRank.HeaderText = "Thứ hạng";
+            this.colRank.MinimumWidth = 6;
+            this.colRank.Name = "colRank";
+            this.colRank.ReadOnly = true;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -311,48 +353,6 @@
             this.cmbRank.TabIndex = 7;
             this.cmbRank.SelectedValueChanged += new System.EventHandler(this.cmbRank_SelectedValueChanged);
             // 
-            // col_ID
-            // 
-            this.col_ID.HeaderText = "Mã Sinh Viên";
-            this.col_ID.MinimumWidth = 6;
-            this.col_ID.Name = "col_ID";
-            this.col_ID.ReadOnly = true;
-            // 
-            // colName
-            // 
-            this.colName.HeaderText = "Tên Sinh Viên";
-            this.colName.MinimumWidth = 6;
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            // 
-            // colSex
-            // 
-            this.colSex.HeaderText = "Giới tính";
-            this.colSex.MinimumWidth = 6;
-            this.colSex.Name = "colSex";
-            this.colSex.ReadOnly = true;
-            // 
-            // colAVG
-            // 
-            this.colAVG.HeaderText = "Điểm TB";
-            this.colAVG.MinimumWidth = 6;
-            this.colAVG.Name = "colAVG";
-            this.colAVG.ReadOnly = true;
-            // 
-            // colKhoa
-            // 
-            this.colKhoa.HeaderText = "Khoa";
-            this.colKhoa.MinimumWidth = 6;
-            this.colKhoa.Name = "colKhoa";
-            this.colKhoa.ReadOnly = true;
-            // 
-            // colRank
-            // 
-            this.colRank.HeaderText = "Thứ hạng";
-            this.colRank.MinimumWidth = 6;
-            this.colRank.Name = "colRank";
-            this.colRank.ReadOnly = true;
-            // 
             // Frm_DanhSachSinhVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -369,7 +369,7 @@
             this.Controls.Add(this.dgvDSSV);
             this.Controls.Add(this.groupBox1);
             this.Name = "Frm_DanhSachSinhVien";
-            this.Text = "Form1";
+            this.Text = "Danh Sách Sinh Viên";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_DanhSachSinhVien_FormClosing);
             this.Load += new System.EventHandler(this.Frm_DanhSachSinhVien_Load);
             this.groupBox1.ResumeLayout(false);
@@ -391,8 +391,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.ComboBox cmbKhoa;
-        private System.Windows.Forms.RadioButton rboWomen;
-        private System.Windows.Forms.RadioButton rboMen;
+        private System.Windows.Forms.RadioButton rbWomen;
+        private System.Windows.Forms.RadioButton rbMen;
         private System.Windows.Forms.TextBox txtAVG;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtID;
