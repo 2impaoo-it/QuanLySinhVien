@@ -33,9 +33,9 @@ namespace QuanLySinhVien
             };
             cmbKhoa.DataSource = lstKhoa;
 
-            lstRank = new List<string>(){ "Có", "Không"};
+            lstRank = new List<string>(){ "Tăng dần", "Giảm dần"};
             cmbRank.DataSource = lstRank;
-            cmbRank.SelectedIndex = 1;
+            cmbRank.SelectedIndex = -1;
 
             //khoa QTKD và giới tính nữ được chọn mặc định  
             cmbKhoa.SelectedValue = "QTKD";
@@ -244,10 +244,17 @@ namespace QuanLySinhVien
 
         private void cmbRank_SelectedValueChanged(object sender, EventArgs e)
         {
-            if(cmbRank.SelectedValue == "Có")
-                dgvDSSV.Columns[5].Visible = true;
-            else
-                dgvDSSV.Columns[5].Visible = false;
+            if(cmbRank.SelectedValue == "Tăng dần")
+            {
+                //hiển thị danh sách sắp xếp tăng dần theo rank
+                dgvDSSV.Sort(dgvDSSV.Columns[5], ListSortDirection.Ascending);
+            }
+               
+            else if(cmbRank.SelectedValue == "Giảm dần")
+            {
+                //hiển thị danh sách sắp xếp giảm dần theo rank
+                dgvDSSV.Sort(dgvDSSV.Columns[5], ListSortDirection.Descending);
+            }
         }
     }
 }
