@@ -52,10 +52,6 @@ namespace QuanLySinhVien
             };
             cmbKhoa.DataSource = lstKhoa;
 
-            lstRank = new List<string>(){ "Tăng dần", "Giảm dần"};
-            cmbRank.DataSource = lstRank;
-            cmbRank.SelectedIndex = -1;
-
             //khoa QTKD và giới tính nữ được chọn mặc định  
             cmbKhoa.SelectedValue = "QTKD";
             rbWomen.Checked = true;
@@ -68,8 +64,8 @@ namespace QuanLySinhVien
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //kiểm tra dữ liệu nhập vào có hợp lệ không
-            if (string.IsNullOrEmpty(txtID.Text) || 
-                string.IsNullOrEmpty(txtName.Text) || 
+            if (string.IsNullOrEmpty(txtID.Text) ||
+                string.IsNullOrEmpty(txtName.Text) ||
                 string.IsNullOrEmpty(txtAVG.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -93,7 +89,7 @@ namespace QuanLySinhVien
                 return;
             }
 
-       
+
 
             //lấy dữ liệu từ txt
             string maSinhVien = txtID.Text;
@@ -135,23 +131,13 @@ namespace QuanLySinhVien
             rbWomen.Checked = true;
         }
 
-        private void UpdateRank()
-        {
-            var sortedList =  lstSinhVien.OrderByDescending(s => s.Diem).ToList();
 
-            // Gán thứ hạng cho từng sinh viên
-            for (int i = 0; i < sortedList.Count; i++)
-            {
-                sortedList[i].rank = i + 1; // Thứ hạng bắt đầu từ 1
-            }
-        }
 
         private void HienThiDanhSachSinhVien()
         {
             //xóa dữ liệu cũ trên dataGridView
             dgvDSSV.Rows.Clear();
-            //cập nhật thứ hạng cho từng sinh viên
-            UpdateRank();
+
             //hiển thị dữ liệu mới lên dataGridView
             foreach (SinhVien sv in lstSinhVien)
             {
@@ -162,8 +148,7 @@ namespace QuanLySinhVien
                 dgvDSSV.Rows[index].Cells[3].Value = sv.Diem;
                 string tenKhoa = lstKhoa.FirstOrDefault(s => s.MaKhoa == sv.MaKhoa).TenKhoa;
                 dgvDSSV.Rows[index].Cells[4].Value = tenKhoa;
-                dgvDSSV.Rows[index].Cells[5].Value = sv.rank;
-            } 
+            }
         }
 
         private void dgvDSSV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -185,15 +170,6 @@ namespace QuanLySinhVien
             }
         }
 
-        private void Frm_DanhSachSinhVien_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //Kiểm tra người dùng có muốn thoát chương trình không
-            DialogResult result = MessageBox.Show("Bạn có muốn thoát chương trình không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
 
         private void txtName_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -211,7 +187,8 @@ namespace QuanLySinhVien
             //kiểm tra mssv có trong danh sách hay không
             string maSinhVien = txtID.Text;
             SinhVien sv = lstSinhVien.FirstOrDefault(s => s.MaSV == maSinhVien);
-            if (sv != null) {
+            if (sv != null)
+            {
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No)
                 {
@@ -237,44 +214,29 @@ namespace QuanLySinhVien
 
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            //lọc danh sách sinh viên theo mã số sinh viên hoặc tên sau đó hiển thị lên DataGridView
-            string keyword = txtSearch.Text;
-            if(keyword == "")
-            {
-                HienThiDanhSachSinhVien();
-                return;
-            }
-            List<SinhVien> lstSearch = lstSinhVien.Where(s => s.MaSV.Contains(keyword) || s.Ten.Contains(keyword)).ToList();
-            dgvDSSV.Rows.Clear();
-            foreach (SinhVien sv in lstSearch)
-            {
-                int index = dgvDSSV.Rows.Add();
-                dgvDSSV.Rows[index].Cells[0].Value = sv.MaSV;
-                dgvDSSV.Rows[index].Cells[1].Value = sv.Ten;
-                dgvDSSV.Rows[index].Cells[2].Value = sv.GioiTinh;
-                dgvDSSV.Rows[index].Cells[3].Value = sv.Diem;
-                string tenKhoa = lstKhoa.FirstOrDefault(s => s.MaKhoa == sv.MaKhoa).TenKhoa;
-                dgvDSSV.Rows[index].Cells[4].Value = tenKhoa;
-            }
+        //private void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //    //lọc danh sách sinh viên theo mã số sinh viên hoặc tên sau đó hiển thị lên DataGridView
+        //    string keyword = txtSearch.Text;
+        //    if (keyword == "")
+        //    {
+        //        HienThiDanhSachSinhVien();
+        //        return;
+        //    }
+        //    List<SinhVien> lstSearch = lstSinhVien.Where(s => s.MaSV.Contains(keyword) || s.Ten.Contains(keyword)).ToList();
+        //    dgvDSSV.Rows.Clear();
+        //    foreach (SinhVien sv in lstSearch)
+        //    {
+        //        int index = dgvDSSV.Rows.Add();
+        //        dgvDSSV.Rows[index].Cells[0].Value = sv.MaSV;
+        //        dgvDSSV.Rows[index].Cells[1].Value = sv.Ten;
+        //        dgvDSSV.Rows[index].Cells[2].Value = sv.GioiTinh;
+        //        dgvDSSV.Rows[index].Cells[3].Value = sv.Diem;
+        //        string tenKhoa = lstKhoa.FirstOrDefault(s => s.MaKhoa == sv.MaKhoa).TenKhoa;
+        //        dgvDSSV.Rows[index].Cells[4].Value = tenKhoa;
+        //    }
 
-        }
-
-        private void cmbRank_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if(cmbRank.SelectedIndex == 0)
-            {
-                //hiển thị danh sách sắp xếp tăng dần theo rank
-                dgvDSSV.Sort(dgvDSSV.Columns[5], ListSortDirection.Ascending);
-            }
-               
-            else if(cmbRank.SelectedIndex == 1)
-            {
-                //hiển thị danh sách sắp xếp giảm dần theo rank
-                dgvDSSV.Sort(dgvDSSV.Columns[5], ListSortDirection.Descending);
-            }
-        }
+        //}
 
         private void btn_AddData_Click(object sender, EventArgs e)
         {
@@ -296,6 +258,30 @@ namespace QuanLySinhVien
             //hiển thị thống kê số lượng sinh viên nam, nữ
             txtMenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nam").ToString();
             txtWomenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nữ").ToString();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            //hỏi người dùng có muốn thoát chương trình không
+            DialogResult result = MessageBox.Show("Bạn có muốn thoát chương trình không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            //mở form quản lý khoa
+            Frm_QLKhoa frm = new Frm_QLKhoa();
+            frm.ShowDialog();
+        }
+
+        private void toolStripLabel2_Click(object sender, EventArgs e)
+        {
+            //mở form tìm kiếm
+            Frm_TimKiem frm = new Frm_TimKiem();
+            frm.ShowDialog();
         }
     }
 }

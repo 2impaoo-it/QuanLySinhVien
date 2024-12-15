@@ -54,10 +54,28 @@
     <Compile Include="Frm_QLSinhVien.Designer.cs">
       <DependentUpon>Frm_QLSinhVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_TimKiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_TimKiem.Designer.cs">
+      <DependentUpon>Frm_TimKiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Frm_QLKhoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_QLKhoa.Designer.cs">
+      <DependentUpon>Frm_QLKhoa.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Frm_QLKhoa.resx">
+      <DependentUpon>Frm_QLKhoa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_QLSinhVien.resx">
       <DependentUpon>Frm_QLSinhVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_TimKiem.resx">
+      <DependentUpon>Frm_TimKiem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
