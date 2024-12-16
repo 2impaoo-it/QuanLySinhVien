@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySinhVien.Entities;
+using QuanLySinhVien.Entities_db;
 
 namespace QuanLySinhVien
 {
     public partial class Frm_DanhSachSinhVien : Form
     {
-        List<Khoa> lstKhoa;
-        List<SinhVien> lstSinhVien = new List<SinhVien>();
-        List<string> lstRank;
+        QuanLiModel context = new QuanLiModel();
+        List<Faculty> lstKhoa;
+        List<Student> lstSinhVien;
         public Frm_DanhSachSinhVien()
         {
             InitializeComponent();
@@ -44,25 +45,45 @@ namespace QuanLySinhVien
         private void Frm_DanhSachSinhVien_Load(object sender, EventArgs e)
         {
             SetGridViewStyle(dgvDSSV);
-            lstKhoa = new List<Khoa>()
-            {
-                new Khoa() {MaKhoa = "CNTT", TenKhoa = "Công nghệ thông tin"},
-                new Khoa() {MaKhoa = "QTKD", TenKhoa = "Quản trị kinh doanh"},
-                new Khoa() {MaKhoa = "NNA", TenKhoa = "Ngôn ngữ Anh"},
-            };
-            cmbKhoa.DataSource = lstKhoa;
+            lstSinhVien = context.Student.ToList();
+            lstKhoa = context.Faculty.ToList();
+            FillFalcultyComboBox(lstKhoa);
+            BindGrid(lstSinhVien);
 
             //khoa QTKD và giới tính nữ được chọn mặc định  
-            cmbKhoa.SelectedValue = "QTKD";
+            cmbKhoa.SelectedValue = 6;
             rbWomen.Checked = true;
+            CountSV();
 
 
-            txtMenCount.Text = txtWomenCount.Text = "0";
+        }
 
+        private void BindGrid(List<Student> lstSinhVien)
+        {
+            dgvDSSV.Rows.Clear();
+            foreach (Student sv in lstSinhVien)
+            {
+                int index = dgvDSSV.Rows.Add();
+                dgvDSSV.Rows[index].Cells[0].Value = sv.StudentID;
+                dgvDSSV.Rows[index].Cells[1].Value = sv.FullName;
+                dgvDSSV.Rows[index].Cells[2].Value = sv.Gender;
+                dgvDSSV.Rows[index].Cells[4].Value = sv.Faculty.FacultyName;
+                dgvDSSV.Rows[index].Cells[3].Value = sv.AverageScore;
+            }
+            CountSV();
+        }
+
+        private void FillFalcultyComboBox(List<Faculty> lstKhoa)
+        {
+            this.cmbKhoa.DataSource = lstKhoa;
+            this.cmbKhoa.DisplayMember = "FacultyName";
+            this.cmbKhoa.ValueMember = "FacultyID";
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            List<Student> lstSinhVien = context.Student.ToList();
+
             //kiểm tra dữ liệu nhập vào có hợp lệ không
             if (string.IsNullOrEmpty(txtID.Text) ||
                 string.IsNullOrEmpty(txtName.Text) ||
@@ -73,10 +94,10 @@ namespace QuanLySinhVien
                 return;
             }
 
-            //kiểm tra mã số sinh viên có đúng định dạng một chuỗi số gồm 10 ký tự không
-            if (txtID.Text.Length != 10 || !txtID.Text.All(char.IsDigit))
+            //kiểm tra mã số sinh viên có bị trùng không
+            if (lstSinhVien.Any(s => s.StudentID == txtID.Text))
             {
-                MessageBox.Show("Mã số sinh viên không hợp lệ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mã số sinh viên đã tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtID.Focus();
                 return;
             }
@@ -89,41 +110,25 @@ namespace QuanLySinhVien
                 return;
             }
 
-
-
             //lấy dữ liệu từ txt
-            string maSinhVien = txtID.Text;
-            string tenSinhVien = txtName.Text;
-            double avgScore = double.Parse(txtAVG.Text);
-            string maKhoa = cmbKhoa.SelectedValue.ToString();
-            string gioiTinh = rbMen.Checked ? "Nam" : "Nữ";
-
-            //kiểm tra sinh viên tồn tại trong danh sách chưa
-            SinhVien sv = lstSinhVien.FirstOrDefault(s => s.MaSV == maSinhVien);
-            if (sv == null)
+            var student = new Student
             {
-                // tạo mới sinh viên
-                sv = new SinhVien(maSinhVien, tenSinhVien, avgScore, maKhoa, gioiTinh);
-                lstSinhVien.Add(sv);
-                MessageBox.Show("Thêm mới dữ liệu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                //cập nhật sinh viên
-                sv.Ten = tenSinhVien;
-                sv.Diem = avgScore;
-                sv.MaKhoa = maKhoa;
-                sv.GioiTinh = gioiTinh;
-                MessageBox.Show("Cập nhật dữ liệu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                StudentID = txtID.Text,
+                FullName = txtName.Text,
+                Gender = rbMen.Checked ? "Male" : "Female",
+                AverageScore = double.Parse(txtAVG.Text),
+                FacultyID = int.Parse(cmbKhoa.SelectedValue.ToString()),
 
+
+            };
+
+            //thêm sinh viên vào danh sách
+            context.Student.Add(student);
+            context.SaveChanges();
 
             //hiển thị danh sách sinh viên lên dgvQLSinhVIen
-            HienThiDanhSachSinhVien();
-
-            //hiển thị thống kê số lượng sinh viên nam, nữ
-            txtMenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nam").ToString();
-            txtWomenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nữ").ToString();
+            BindGrid(context.Student.ToList());
+            MessageBox.Show("Thêm sinh viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);    
 
             //reset form 
             txtID.Text = txtName.Text = txtAVG.Text = "";
@@ -131,42 +136,30 @@ namespace QuanLySinhVien
             rbWomen.Checked = true;
         }
 
-
-
-        private void HienThiDanhSachSinhVien()
+        private void CountSV()
         {
-            //xóa dữ liệu cũ trên dataGridView
-            dgvDSSV.Rows.Clear();
-
-            //hiển thị dữ liệu mới lên dataGridView
-            foreach (SinhVien sv in lstSinhVien)
-            {
-                int index = dgvDSSV.Rows.Add();
-                dgvDSSV.Rows[index].Cells[0].Value = sv.MaSV;
-                dgvDSSV.Rows[index].Cells[1].Value = sv.Ten;
-                dgvDSSV.Rows[index].Cells[2].Value = sv.GioiTinh;
-                dgvDSSV.Rows[index].Cells[3].Value = sv.Diem;
-                string tenKhoa = lstKhoa.FirstOrDefault(s => s.MaKhoa == sv.MaKhoa).TenKhoa;
-                dgvDSSV.Rows[index].Cells[4].Value = tenKhoa;
-            }
+            lstSinhVien = context.Student.ToList();
+            txtMenCount.Text = lstSinhVien.Count(s => s.Gender == "Male").ToString();
+            txtWomenCount.Text = lstSinhVien.Count(s => s.Gender == "Female").ToString();
         }
 
         private void dgvDSSV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            lstSinhVien = context.Student.ToList();
             //kiểm tra người dùng có click vào dòng header không
             if (e.RowIndex < 0) return;
             //lấy thông tin sinh viên từ dòng đc click
             string maSinhVien = dgvDSSV.Rows[e.RowIndex].Cells[0].Value.ToString();
-            SinhVien sv = lstSinhVien.FirstOrDefault(s => s.MaSV == maSinhVien);
+            Student sv = lstSinhVien.FirstOrDefault(s => s.StudentID == maSinhVien);
             if (sv != null)
             {
                 //hiển thị thông tin sinh viên lên form
-                txtID.Text = sv.MaSV;
-                txtName.Text = sv.Ten;
-                txtAVG.Text = sv.Diem.ToString();
-                cmbKhoa.SelectedValue = sv.MaKhoa;
-                rbMen.Checked = sv.GioiTinh == "Nam";
-                rbWomen.Checked = sv.GioiTinh == "Nữ";
+                txtID.Text = sv.StudentID;
+                txtName.Text = sv.FullName;
+                txtAVG.Text = sv.AverageScore.ToString();
+                cmbKhoa.SelectedValue = sv.Faculty.FacultyID;
+                rbMen.Checked = sv.Gender == "Male";
+                rbWomen.Checked = sv.Gender == "Female";
             }
         }
 
@@ -184,9 +177,9 @@ namespace QuanLySinhVien
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            lstSinhVien = context.Student.ToList();
             //kiểm tra mssv có trong danh sách hay không
-            string maSinhVien = txtID.Text;
-            SinhVien sv = lstSinhVien.FirstOrDefault(s => s.MaSV == maSinhVien);
+            var sv = lstSinhVien.FirstOrDefault(s => s.StudentID == txtID.Text);
             if (sv != null)
             {
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -195,13 +188,15 @@ namespace QuanLySinhVien
                     return;
                 }
                 //xóa sinh viên khỏi danh sách
-                lstSinhVien.Remove(sv);
+                context.Student.Remove(sv);
+                context.SaveChanges();
+
+                //hiển thị danh sách
+                BindGrid(context.Student.ToList());
+                
                 MessageBox.Show("Xóa dữ liệu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //hiển thị lại danh sách sinh viên
-                HienThiDanhSachSinhVien();
                 //hiển thị lại thống kê số lượng sinh viên nam, nữ
-                txtMenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nam").ToString();
-                txtWomenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nữ").ToString();
+                
                 //reset form
                 txtID.Text = txtName.Text = txtAVG.Text = "";
                 cmbKhoa.SelectedValue = "QTKD";
@@ -212,52 +207,6 @@ namespace QuanLySinhVien
                 MessageBox.Show("Mã số sinh viên không tồn tại trong hệ thống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-        }
-
-        //private void btnSearch_Click(object sender, EventArgs e)
-        //{
-        //    //lọc danh sách sinh viên theo mã số sinh viên hoặc tên sau đó hiển thị lên DataGridView
-        //    string keyword = txtSearch.Text;
-        //    if (keyword == "")
-        //    {
-        //        HienThiDanhSachSinhVien();
-        //        return;
-        //    }
-        //    List<SinhVien> lstSearch = lstSinhVien.Where(s => s.MaSV.Contains(keyword) || s.Ten.Contains(keyword)).ToList();
-        //    dgvDSSV.Rows.Clear();
-        //    foreach (SinhVien sv in lstSearch)
-        //    {
-        //        int index = dgvDSSV.Rows.Add();
-        //        dgvDSSV.Rows[index].Cells[0].Value = sv.MaSV;
-        //        dgvDSSV.Rows[index].Cells[1].Value = sv.Ten;
-        //        dgvDSSV.Rows[index].Cells[2].Value = sv.GioiTinh;
-        //        dgvDSSV.Rows[index].Cells[3].Value = sv.Diem;
-        //        string tenKhoa = lstKhoa.FirstOrDefault(s => s.MaKhoa == sv.MaKhoa).TenKhoa;
-        //        dgvDSSV.Rows[index].Cells[4].Value = tenKhoa;
-        //    }
-
-        //}
-
-        private void btn_AddData_Click(object sender, EventArgs e)
-        {
-            //thêm dữ liệu mẫu
-            lstSinhVien.Add(new SinhVien("2280600001", "Nguyễn Văn A", 9.5, "QTKD", "Nam"));
-            lstSinhVien.Add(new SinhVien("2280600002", "Trần Thị B", 8.5, "CNTT", "Nữ"));
-            lstSinhVien.Add(new SinhVien("2280600003", "Lê Văn C", 7.8, "CNTT", "Nam"));
-            lstSinhVien.Add(new SinhVien("2280600004", "Phạm Thị D", 10, "NNA", "Nữ"));
-            lstSinhVien.Add(new SinhVien("2280600005", "Nguyễn Văn E", 5.8, "CNTT", "Nam"));
-            lstSinhVien.Add(new SinhVien("2280600006", "Trần Thị F", 4, "CNTT", "Nữ"));
-            lstSinhVien.Add(new SinhVien("2280600007", "Lê Văn G", 3, "CNTT", "Nam"));
-            lstSinhVien.Add(new SinhVien("2280600008", "Đỗ Mạnh H", 7, "QTKD", "Nam"));
-            lstSinhVien.Add(new SinhVien("2280600009", "Nguyễn Văn I", 1.2, "CNTT", "Nam"));
-            lstSinhVien.Add(new SinhVien("2280600010", "Trần Thị K", 5, "NNA", "Nữ"));
-
-            //hiển thị danh sách sinh viên lên dgvQLSinhVIen
-            HienThiDanhSachSinhVien();
-
-            //hiển thị thống kê số lượng sinh viên nam, nữ
-            txtMenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nam").ToString();
-            txtWomenCount.Text = lstSinhVien.Count(s => s.GioiTinh == "Nữ").ToString();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -282,6 +231,46 @@ namespace QuanLySinhVien
             //mở form tìm kiếm
             Frm_TimKiem frm = new Frm_TimKiem();
             frm.ShowDialog();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            lstSinhVien = context.Student.ToList();
+            try
+            {
+                //kiểm tra mã số sinh viên có tồn tại trong danh sách hay không
+                string maSinhVien = txtID.Text;
+                Student sv = lstSinhVien.FirstOrDefault(s => s.StudentID == maSinhVien);
+                if (sv != null)
+                {
+                    //cập nhật thông tin sinh viên
+                    sv.FullName = txtName.Text;
+                    sv.AverageScore = double.Parse(txtAVG.Text);
+                    sv.FacultyID = int.Parse(cmbKhoa.SelectedValue.ToString());
+                    sv.Gender = rbMen.Checked ? "Male" : "Female";
+
+                    //lưu thay đổi vào database
+                    context.SaveChanges();
+
+                    //hiển thị lại danh sách sinh viên
+                    BindGrid(context.Student.ToList());
+                    MessageBox.Show("Cập nhật dữ liệu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("Mã số sinh viên không tồn tại trong hệ thống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi sửa dữ liệu: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            //reset form
+            txtID.Text = txtName.Text = txtAVG.Text = "";
+            cmbKhoa.SelectedValue = "QTKD";
+            rbWomen.Checked = true;
         }
     }
 }
