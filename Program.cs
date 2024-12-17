@@ -16,7 +16,7 @@ namespace QuanLySinhVien
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm_DanhSachSinhVien());
+            Application.Run(new FrmMain());
         }
     }
 }

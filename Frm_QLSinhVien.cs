@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using QuanLySinhVien.Entities;
 using QuanLySinhVien.Entities_db;
 
+
 namespace QuanLySinhVien
 {
     public partial class Frm_DanhSachSinhVien : Form
@@ -221,9 +222,7 @@ namespace QuanLySinhVien
 
         private void toolStripLabel1_Click(object sender, EventArgs e)
         {
-            //mở form quản lý khoa
-            Frm_QLKhoa frm = new Frm_QLKhoa();
-            frm.ShowDialog();
+            
         }
 
         private void toolStripLabel2_Click(object sender, EventArgs e)
@@ -271,6 +270,20 @@ namespace QuanLySinhVien
             txtID.Text = txtName.Text = txtAVG.Text = "";
             cmbKhoa.SelectedValue = "QTKD";
             rbWomen.Checked = true;
+        }
+
+        private void btnAddKhoa_Click(object sender, EventArgs e)
+        {
+            //mở form quản lý khoa
+            Frm_QLKhoa frm = new Frm_QLKhoa();
+            frm.ShowDialog();
+        }
+
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmMain frmMain = new FrmMain();
+            frmMain.Show();
+            this.Close();
         }
     }
 }

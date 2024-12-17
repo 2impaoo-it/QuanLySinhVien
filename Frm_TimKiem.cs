@@ -45,11 +45,7 @@ namespace QuanLySinhVien
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Bạn có muốn đóng Tìm kiếm không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                this.Close();
-            }
+            Application.Exit();
         }
 
         private void Frm_TimKiem_Load(object sender, EventArgs e)
@@ -58,7 +54,6 @@ namespace QuanLySinhVien
             students = context.Student.ToList();
             txtID.Text = "";
             txtName.Text = "";
-            rbWomen.Checked = true;
             txtSearchCount.Text = "0";
             BindGrid(students);
             FillFalcultyComboBox(context.Faculty.ToList());
@@ -90,9 +85,16 @@ namespace QuanLySinhVien
 
             //tìm kiếm sinh viên theo tên
                 students = context.Student.Where(sv => sv.FullName.Contains(txtName.Text) && 
-                sv.StudentID.Contains(txtID.Text) && sv.Gender == (rbMen.Checked? "Male" :"Female")
-                && sv.Faculty.FacultyName.Contains(cboKhoa.Text)).ToList();
-            BindGrid(students);
+                sv.StudentID.Contains(txtID.Text) && sv.Faculty.FacultyName.Contains(cboKhoa.Text)).ToList();
+            if (rbMen.Checked)
+            {
+                students = students.Where(sv => sv.Gender == "Male").ToList();
+            }
+            if (rbWomen.Checked)
+            {
+                students = students.Where(sv => sv.Gender == "Female").ToList();
+            }
+                BindGrid(students);
             txtSearchCount.Text = students.Count.ToString();
             if(students.Count == 0)
             {

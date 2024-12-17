@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAddKhoa = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -59,12 +60,13 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hệThốngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quảnLíKhoaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDangNhap = new System.Windows.Forms.ToolStripMenuItem();
             this.tìmKiếmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thốngKêToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSSV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errName)).BeginInit();
@@ -74,6 +76,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnAddKhoa);
             this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.btnDelete);
             this.groupBox1.Controls.Add(this.btnAdd);
@@ -96,10 +99,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin sinh viên";
             // 
+            // btnAddKhoa
+            // 
+            this.btnAddKhoa.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnAddKhoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddKhoa.ForeColor = System.Drawing.Color.Red;
+            this.btnAddKhoa.Location = new System.Drawing.Point(266, 228);
+            this.btnAddKhoa.Name = "btnAddKhoa";
+            this.btnAddKhoa.Size = new System.Drawing.Size(56, 38);
+            this.btnAddKhoa.TabIndex = 6;
+            this.btnAddKhoa.Text = "+";
+            this.btnAddKhoa.UseVisualStyleBackColor = false;
+            this.btnAddKhoa.Click += new System.EventHandler(this.btnAddKhoa_Click);
+            // 
             // btnUpdate
             // 
             this.btnUpdate.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(111, 278);
+            this.btnUpdate.Location = new System.Drawing.Point(111, 294);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(92, 47);
             this.btnUpdate.TabIndex = 5;
@@ -110,7 +126,7 @@
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(230, 278);
+            this.btnDelete.Location = new System.Drawing.Point(230, 294);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(92, 47);
             this.btnDelete.TabIndex = 4;
@@ -121,7 +137,7 @@
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(0, 278);
+            this.btnAdd.Location = new System.Drawing.Point(0, 294);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(92, 47);
             this.btnAdd.TabIndex = 4;
@@ -132,9 +148,9 @@
             // cmbKhoa
             // 
             this.cmbKhoa.FormattingEnabled = true;
-            this.cmbKhoa.Location = new System.Drawing.Point(89, 207);
+            this.cmbKhoa.Location = new System.Drawing.Point(10, 236);
             this.cmbKhoa.Name = "cmbKhoa";
-            this.cmbKhoa.Size = new System.Drawing.Size(233, 30);
+            this.cmbKhoa.Size = new System.Drawing.Size(239, 30);
             this.cmbKhoa.TabIndex = 3;
             // 
             // rbWomen
@@ -187,7 +203,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 207);
+            this.label5.Location = new System.Drawing.Point(6, 210);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 23);
             this.label5.TabIndex = 0;
@@ -358,19 +374,20 @@
             // hệThốngToolStripMenuItem
             // 
             this.hệThốngToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quảnLíKhoaToolStripMenuItem,
-            this.tìmKiếmToolStripMenuItem});
+            this.menuDangNhap,
+            this.tìmKiếmToolStripMenuItem,
+            this.đăngXuấtToolStripMenuItem});
             this.hệThốngToolStripMenuItem.Name = "hệThốngToolStripMenuItem";
             this.hệThốngToolStripMenuItem.Size = new System.Drawing.Size(85, 24);
             this.hệThốngToolStripMenuItem.Text = "Hệ thống";
             // 
-            // quảnLíKhoaToolStripMenuItem
+            // menuDangNhap
             // 
-            this.quảnLíKhoaToolStripMenuItem.Name = "quảnLíKhoaToolStripMenuItem";
-            this.quảnLíKhoaToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.quảnLíKhoaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.quảnLíKhoaToolStripMenuItem.Text = "Quản lí khoa";
-            this.quảnLíKhoaToolStripMenuItem.Click += new System.EventHandler(this.toolStripLabel1_Click);
+            this.menuDangNhap.Name = "menuDangNhap";
+            this.menuDangNhap.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.menuDangNhap.Size = new System.Drawing.Size(224, 26);
+            this.menuDangNhap.Text = "Quản lí khoa";
+            this.menuDangNhap.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
             // tìmKiếmToolStripMenuItem
             // 
@@ -408,6 +425,13 @@
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // đăngXuấtToolStripMenuItem
+            // 
+            this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
+            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
+            this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
+            // 
             // Frm_DanhSachSinhVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -424,6 +448,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Frm_DanhSachSinhVien";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Danh Sách Sinh Viên";
             this.Load += new System.EventHandler(this.Frm_DanhSachSinhVien_Load);
             this.groupBox1.ResumeLayout(false);
@@ -474,9 +499,11 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem quảnLíKhoaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuDangNhap;
         private System.Windows.Forms.ToolStripMenuItem tìmKiếmToolStripMenuItem;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnAddKhoa;
+        private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
     }
 }
 
