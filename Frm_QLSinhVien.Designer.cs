@@ -62,11 +62,11 @@
             this.hệThốngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDangNhap = new System.Windows.Forms.ToolStripMenuItem();
             this.tìmKiếmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thốngKêToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDSSV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errName)).BeginInit();
@@ -118,7 +118,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(111, 294);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(92, 47);
-            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.TabIndex = 8;
             this.btnUpdate.Text = "Sửa";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -129,7 +129,7 @@
             this.btnDelete.Location = new System.Drawing.Point(230, 294);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(92, 47);
-            this.btnDelete.TabIndex = 4;
+            this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -140,7 +140,7 @@
             this.btnAdd.Location = new System.Drawing.Point(0, 294);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(92, 47);
-            this.btnAdd.TabIndex = 4;
+            this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -160,7 +160,7 @@
             this.rbWomen.Location = new System.Drawing.Point(252, 126);
             this.rbWomen.Name = "rbWomen";
             this.rbWomen.Size = new System.Drawing.Size(55, 27);
-            this.rbWomen.TabIndex = 2;
+            this.rbWomen.TabIndex = 4;
             this.rbWomen.TabStop = true;
             this.rbWomen.Text = "Nữ";
             this.rbWomen.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@
             this.rbMen.Location = new System.Drawing.Point(134, 126);
             this.rbMen.Name = "rbMen";
             this.rbMen.Size = new System.Drawing.Size(69, 27);
-            this.rbMen.TabIndex = 2;
+            this.rbMen.TabIndex = 3;
             this.rbMen.TabStop = true;
             this.rbMen.Text = "Nam";
             this.rbMen.UseVisualStyleBackColor = true;
@@ -182,14 +182,14 @@
             this.txtAVG.Location = new System.Drawing.Point(89, 166);
             this.txtAVG.Name = "txtAVG";
             this.txtAVG.Size = new System.Drawing.Size(233, 28);
-            this.txtAVG.TabIndex = 1;
+            this.txtAVG.TabIndex = 5;
             // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(89, 84);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(233, 28);
-            this.txtName.TabIndex = 1;
+            this.txtName.TabIndex = 2;
             this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
             // 
             // txtID
@@ -385,7 +385,7 @@
             // 
             this.menuDangNhap.Name = "menuDangNhap";
             this.menuDangNhap.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.menuDangNhap.Size = new System.Drawing.Size(224, 26);
+            this.menuDangNhap.Size = new System.Drawing.Size(202, 26);
             this.menuDangNhap.Text = "Quản lí khoa";
             this.menuDangNhap.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
@@ -393,9 +393,16 @@
             // 
             this.tìmKiếmToolStripMenuItem.Name = "tìmKiếmToolStripMenuItem";
             this.tìmKiếmToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.tìmKiếmToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.tìmKiếmToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.tìmKiếmToolStripMenuItem.Text = "Tìm kiếm";
             this.tìmKiếmToolStripMenuItem.Click += new System.EventHandler(this.toolStripLabel2_Click);
+            // 
+            // đăngXuấtToolStripMenuItem
+            // 
+            this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
+            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
+            this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
             // thốngKêToolStripMenuItem
             // 
@@ -424,13 +431,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(1117, 25);
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // đăngXuấtToolStripMenuItem
-            // 
-            this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
-            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
-            this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
             // Frm_DanhSachSinhVien
             // 

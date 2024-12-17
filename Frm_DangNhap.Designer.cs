@@ -54,7 +54,7 @@
             this.btnDangNhap.Location = new System.Drawing.Point(203, 224);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(150, 50);
-            this.btnDangNhap.TabIndex = 5;
+            this.btnDangNhap.TabIndex = 3;
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = true;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
@@ -75,7 +75,7 @@
             this.txtMatKhau.Location = new System.Drawing.Point(149, 167);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(328, 34);
-            this.txtMatKhau.TabIndex = 9;
+            this.txtMatKhau.TabIndex = 2;
             this.txtMatKhau.UseSystemPasswordChar = true;
             // 
             // txtTaiKhoan
@@ -84,7 +84,7 @@
             this.txtTaiKhoan.Location = new System.Drawing.Point(149, 116);
             this.txtTaiKhoan.Name = "txtTaiKhoan";
             this.txtTaiKhoan.Size = new System.Drawing.Size(328, 34);
-            this.txtTaiKhoan.TabIndex = 10;
+            this.txtTaiKhoan.TabIndex = 1;
             // 
             // label3
             // 
@@ -119,6 +119,7 @@
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.label1);
             this.Name = "Frm_DangNhap";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Frm_DangNhap";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_DangNhap_FormClosing);
             this.ResumeLayout(false);

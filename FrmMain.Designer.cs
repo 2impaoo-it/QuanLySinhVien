@@ -40,17 +40,19 @@
             this.label1.Font = new System.Drawing.Font("Mistral", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(80, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(443, 53);
+            this.label1.Size = new System.Drawing.Size(435, 52);
             this.label1.TabIndex = 0;
             this.label1.Text = "QUẢN LÝ SINH VIÊN/KHOA";
             // 
             // btnDangNhap
             // 
+            this.btnDangNhap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnDangNhap.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnDangNhap.Font = new System.Drawing.Font("Perpetua", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangNhap.Location = new System.Drawing.Point(64, 149);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(186, 92);
-            this.btnDangNhap.TabIndex = 1;
+            this.btnDangNhap.TabIndex = 0;
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = true;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
@@ -87,6 +89,7 @@
             this.Controls.Add(this.btnDangNhap);
             this.Controls.Add(this.label1);
             this.Name = "FrmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmMain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.ResumeLayout(false);

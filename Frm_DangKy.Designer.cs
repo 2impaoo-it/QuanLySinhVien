@@ -63,7 +63,7 @@
             this.txtTaiKhoan.Location = new System.Drawing.Point(145, 102);
             this.txtTaiKhoan.Name = "txtTaiKhoan";
             this.txtTaiKhoan.Size = new System.Drawing.Size(328, 34);
-            this.txtTaiKhoan.TabIndex = 2;
+            this.txtTaiKhoan.TabIndex = 1;
             // 
             // label3
             // 
@@ -108,6 +108,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Frm_DangKy";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Frm_DangKy";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_DangKy_FormClosing);
             this.ResumeLayout(false);

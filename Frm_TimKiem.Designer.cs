@@ -296,6 +296,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "Frm_TimKiem";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Frm_TimKiem";
             this.Load += new System.EventHandler(this.Frm_TimKiem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearch)).EndInit();

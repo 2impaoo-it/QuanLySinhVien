@@ -288,6 +288,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "Frm_QLKhoa";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuanLiKhoa";
             this.Load += new System.EventHandler(this.Frm_QLKhoa_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFaculty)).EndInit();
